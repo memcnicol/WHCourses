@@ -149,10 +149,10 @@
             var innerHeight = window.innerHeight;
             var innerWidth = window.innerWidth;
 
-            if((3/4)*innerWidth > innerHeight) { //screen is too wide for full width
-                innerWidth = (4/3)*innerHeight;
+            if((9/16)*innerWidth > innerHeight) { //screen is too wide for full width
+                innerWidth = (16/9)*innerHeight;
             } else { //screen is tall enough for full width
-                innerHeight = (3/4)*innerWidth;
+                innerHeight = (9/16)*innerWidth;
             }
             
             root.style.setProperty('--viewport-width', innerWidth + 'px');
@@ -163,10 +163,10 @@
             var windowedWidth = windowedPlayer.clientWidth;
             var windowedHeight = windowedPlayer.clientHeight;
 
-            if((3/4)*windowedWidth > windowedHeight) { //screen is too wide for full width
-                windowedWidth = (4/3)*windowedHeight;
+            if((9/16)*windowedWidth > windowedHeight) { //screen is too wide for full width
+                windowedWidth = (16/9)*windowedHeight;
             } else { //screen is tall enough for full width
-                windowedHeight = (3/4)*windowedWidth;
+                windowedHeight = (9/16)*windowedWidth;
             }
 
             root.style.setProperty('--player-width', windowedWidth + 'px');
