@@ -6,8 +6,8 @@
             --viewport-height: 0px;
             --viewport-width: 100%;
 
-            --player-height: 0px;
-            --player-width: 0px;
+            --player-height: 300px;
+            --player-width: 400px;
         }
 
         body {
@@ -120,6 +120,10 @@
             height: var(--player-height);
         }
 
+        #html5IFrame {
+            overflow: hidden;
+        }
+
         @media only screen and (max-width: 768px) and (orientation:portrait) {
             body {
                 flex-direction: column;
@@ -134,7 +138,6 @@
                 width: auto;
             }
             .player {
-                height: 100vh;
             }
         }
     </style>
