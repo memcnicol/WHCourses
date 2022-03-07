@@ -1,0 +1,195 @@
+<head>
+<style>
+    :root {
+        /* Custom Variable Declirations */
+        --viewport-height: 0px;
+        --viewport-width: 100%;
+
+        --player-height: 0px;
+        --player-width: 0px;
+    }
+
+    body {
+        background: rgb(240, 240, 240);
+        display: flex;
+        flex-direction: row;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        max-height: var(--viewport-height);
+        margin: 0px;
+        box-sizing: border-box;
+    }
+    .container {
+        background: #FFFFFF;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 16px;
+        padding: 16px;
+        margin: 16px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .player {
+        background: rgb(255, 255, 255);
+        border-radius: 2px;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh-32px);
+    }
+    .secondary {
+        width: 400px;
+        height: fit-content;
+    }
+
+    #fullscreen-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 4px;
+
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+    }
+
+    #fullscreen-button:hover {
+        background: rgba(240, 240, 240, .85);
+    }
+
+    img#vector {
+        position: static;
+        left: 26.67%;
+        right: 26.67%;
+        top: 26.67%;
+        bottom: 26.67%;
+
+        /* SS Blue */
+
+        fill: #2052B9;
+
+        /* Inside auto layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+    }
+
+    .fillViewport {
+        z-index: 9999;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        overflow: hidden;
+        background-color: rgba(0,0,0,.85);
+    }
+    .tile-header {
+        padding: 16px;
+    }
+
+    li {
+        padding-bottom: 16px;
+    }
+
+    .fullScreenPlayer {
+        width: var(--viewport-width);
+        height: var(--viewport-height);
+    }
+
+    .windowedPlayer {
+        width: var(--player-width);
+        height: var(--player-height);
+    }
+
+    @media only screen and (max-width: 768px) {
+        body {
+            flex-direction: column-reverse;
+        }
+        .secondary {
+            width: 100%;
+        }
+    }
+</style>
+<script>
+    function fullScreenProperties() {
+        console.log("Setting Viewport Dimensions");
+        var root = document.querySelector(':root');
+        
+        var innerHeight = window.innerHeight;
+        var innerWidth = window.innerWidth;
+
+        if((3/4)*innerWidth > innerHeight) { //screen is too wide for full width
+            innerWidth = (4/3)*innerHeight;
+        } else { //screen is tall enough for full width
+            innerHeight = (3/4)*innerWidth;
+        }
+        
+        root.style.setProperty('--viewport-width', innerWidth + 'px');
+        root.style.setProperty('--viewport-height', innerHeight + 'px');
+
+        var windowedPlayer = document.getElementById('HTML5player');
+        var style = getComputedStyle(windowedPlayer);
+        var windowedWidth = windowedPlayer.clientWidth;
+        var windowedHeight = windowedPlayer.clientHeight;
+
+        if((3/4)*windowedWidth > windowedHeight) { //screen is too wide for full width
+            windowedWidth = (4/3)*windowedHeight;
+        } else { //screen is tall enough for full width
+            windowedHeight = (3/4)*windowedWidth;
+        }
+
+        root.style.setProperty('--player-width', windowedWidth + 'px');
+        root.style.setProperty('--player-height', windowedHeight + 'px');
+
+    }
+
+    window.addEventListener('resize', fullScreenProperties);
+</script>
+</head>
+
+<body onload="fullScreenProperties()">
+    <div class="container main" id="1">
+        <div class="tile-header">Lesson Tile</div>
+        <div class="player" id="HTML5player">
+            <iframe id="html5IFrame" class="windowedPlayer" frameborder="0" scrolling="auto" allowfullscreen="" src="https://training.safetysync.com/?t=l&amp;e=473049&amp;lv=189&amp;cid=62&amp;v=a&amp;token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjdhYjI4Y2NhZTk4MGQ2NmVjNzlkYjU2Nzg4YTBmYTM2IiwidHlwIjoiSldUIn0.eyJuYmYiOjE2NDUxMTY0NTAsImV4cCI6MTY0NTE1OTY1MCwiaXNzIjoiaHR0cHM6Ly9hdXRob3JpemUud29ya2h1Yi5jb20iLCJhdWQiOlsiaHR0cHM6Ly9hdXRob3JpemUud29ya2h1Yi5jb20vcmVzb3VyY2VzIiwiU1MtQVBJIl0sImNsaWVudF9pZCI6IlNhZmV0eVN5bmNSZXNvdXJjZU93bmVyIiwic3ViIjoiNDczMDQ5IiwiYXV0aF90aW1lIjoxNjQ1MTE2NDUwLCJpZHAiOiJsb2NhbCIsImNpZCI6IjEiLCJkaWQiOiIxNDAyIiwibGlkIjoiNiIsInBpZCI6IjEwMTI3NSIsInNzeW5jaWQiOiIwIiwiaXNzaXRlYWRtaW4iOiIxIiwiaXNzdXBlcnVzZXIiOiIxIiwiaXNsaW1pdGJ5bG9jIjoiMCIsImlzbGltaXRieWRpdiI6IjAiLCJzY29wZSI6WyJTUy1BUEkiXSwiYW1yIjpbImN1c3RvbSJdfQ.pu-axJnNqbtDXcNT1l75V5-Gegv-SCCgGVMPVOPz9BkYGsWHAQgUDONO1bcUtkWT_TrrIYGX537vNPAp9eGzbA1fnzdKJ8znXUw4k4XJrLrRWyTSmPHxXOi63yZRglaXYEXEP7eN4GIP2eN8c1GGiL_oJe5dLnx1BE3k_lG2CQR6bXw33AfXCvjd1aexrqw0wz3x0cAg-sDBOMnVap5ErceoF3vj0rXdWjzjDmvavfJXdjvmkmr2ttwhnzg8c4g7kreUWaI_C1PK6UAl_Nn09YxGF2rEATN0zUznc8e9dOMrb8R_vH36mJSGXWG4MvxX9RI14AOGH5WOLa8ygUM8eA"></iframe>
+
+            <div id="fullscreen-button" onclick="
+                                                    document.getElementById('HTML5player').classList.toggle('fillViewport');
+                                                    document.getElementById('html5IFrame').classList.toggle('fullScreenPlayer');
+                                                    document.getElementById('html5IFrame').classList.toggle('windowedPlayer');">
+                <img src="fullscreen_black_24dp.svg" id="vector" />    
+            </div>
+        </div>
+    </div>
+    <div class="container secondary">
+        <div class="tile-header">Lesson Information</div>
+        <div>
+            <ul>
+            <li>Attribute 1</li>
+            <li>Attribute 2</li>
+            <li>Attribute 3</li>
+            <li>Attribute 4</li>
+            <li>Attribute 5</li>
+            </ul>
+        </div>
+    </div>
+</body>
